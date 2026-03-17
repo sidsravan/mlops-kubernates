@@ -19,7 +19,6 @@ stages:
 # ---------------------------------------------------------
 - stage: Build_and_Push
   displayName: "Build, Scan & Push Docker Image"
-  dependsOn: Code_Scan
   jobs:
     - job: Build
       displayName: "Build Docker Image"
