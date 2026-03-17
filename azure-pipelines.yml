@@ -68,9 +68,13 @@ stages:
             inlineScript: |
               az aks get-credentials --resource-group $(aksRG) --name $(aksCluster)
 
-        # Deploy using Kubernetes manifest
+        # Apply manifests (ensures deployment exists)
         - script: |
-            echo "Deploying to AKS..."
-            kubectl set image deployment/mlops-app mlops-container=$(imageFullName)
-            kubectl rollout status deployment/mlops-app
+            kubectl apply -f 04-k8s-manifests/
+          displayName: "Apply Kubernetes Manifests"
+
+        # Update image in correct deployment + namespace
+        - script: |
+            kubectl set image deployment/intent-classifier intent-classifier=$(imageFullName) -n intent-namespace
+            kubectl rollout status deployment/intent-classifier -n intent-namespace
           displayName: "Deploy Updated Image to AKS"
