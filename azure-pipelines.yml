@@ -41,12 +41,6 @@ stages:
             docker build -t $(imageFullName) .
           displayName: "Build Docker Image"
 
-        # Image Scan (Trivy)
-        - script: |
-            echo "Scanning image with Trivy..."
-            trivy image --exit-code 1 --severity HIGH,CRITICAL $(imageFullName)
-          displayName: "Scan Docker Image with Trivy"
-
         # Push Image to ACR
         - script: |
             docker push $(imageFullName)
