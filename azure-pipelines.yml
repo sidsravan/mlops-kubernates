@@ -6,9 +6,9 @@ trigger:
 variables:
   imageName: 'mlops-kubernetes'
   tag: '$(Build.BuildId)'
-  acrName: 'yourACRName'
-  aksCluster: 'yourAKSClusterName'
-  aksRG: 'yourResourceGroup'
+  acrName: 'aihackthonacr'
+  aksCluster: 'aihackthon-aks'
+  aksRG: 'aihackthon-rg'
   dockerfilePath: 'model/Dockerfile'
   imageFullName: '$(acrName).azurecr.io/$(imageName):$(tag)'
 
@@ -31,7 +31,7 @@ stages:
         # Login to ACR
         - task: AzureCLI@2
           inputs:
-            azureSubscription: 'AzureServiceConnection'
+            azureSubscription: 'azureconn'
             scriptType: bash
             scriptLocation: inlineScript
             inlineScript: |
@@ -69,7 +69,7 @@ stages:
         # Login to AKS
         - task: AzureCLI@2
           inputs:
-            azureSubscription: 'AzureServiceConnection'
+            azureSubscription: 'azureconn'
             scriptType: bash
             scriptLocation: inlineScript
             inlineScript: |
