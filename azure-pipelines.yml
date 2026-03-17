@@ -38,7 +38,7 @@ stages:
 
         # Build Docker Image
         - script: |
-            docker build -t $(imageFullName) -f $(dockerfilePath) .
+            docker build -t $(imageFullName) .
           displayName: "Build Docker Image"
 
         # Image Scan (Trivy)
